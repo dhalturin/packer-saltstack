@@ -10,5 +10,6 @@ if [ $(command -v yum) ]; then
 fi
 
 if [ $(command -v apt) ]; then
-    apt install -y --no-install-recommends build-essential dkms
+    apt update
+    apt install -y --no-install-recommends linux-image-5.4.0-80-generic linux-headers-5.4.0-80-generic build-essential dkms
 fi
