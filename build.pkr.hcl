@@ -11,6 +11,7 @@ source "vagrant" "cloud" {
   box_name     = "${var.box_name}-salt"
   box_version  = var.box_version
   output_dir   = "output/${var.box_name}-${var.box_version}"
+  template     = "Vagrantfile.tpl"
 }
 
 build {
@@ -19,6 +20,10 @@ build {
   provisioner "shell" {
     execute_command   = "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
     expect_disconnect = true
+
+    environment_vars = [
+      "SALT_VERSION=${var.box_version}"
+    ]
 
     scripts = [
       "./scripts/01.prepare.sh",
